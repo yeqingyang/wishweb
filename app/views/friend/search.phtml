@@ -1,0 +1,52 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent(); ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("friend/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("friend/new", "Create ")); ?>
+        </td>
+    </tr>
+</table>
+
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Uid</th>
+            <th>Fuid</th>
+            <th>Friend Of Type</th>
+            <th>Status</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page->items as $friend) { ?>
+        <tr>
+            <td><?php echo $friend->uid ?></td>
+            <td><?php echo $friend->fuid ?></td>
+            <td><?php echo $friend->friend_type ?></td>
+            <td><?php echo $friend->status ?></td>
+            <td><?php echo $this->tag->linkTo(array("friend/edit/" . $friend->uid, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("friend/delete/" . $friend->uid, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("friend/search", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/search?page=" . $page->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/search?page=" . $page->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/search?page=" . $page->last, "Last") ?></td>
+                        <td><?php echo $page->current, "/", $page->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>

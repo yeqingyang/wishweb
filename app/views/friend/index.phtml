@@ -1,0 +1,106 @@
+<?php use Phalcon\Tag; ?>
+
+<?php echo $this->getContent() ?>
+
+<table width="100%">
+    <tr>
+        <td align="left">
+            <?php echo $this->tag->linkTo(array("friend/index", "Go Back")); ?>
+        </td>
+        <td align="right">
+            <?php echo $this->tag->linkTo(array("friend/search", "Find friends")); ?>
+        </td>
+    </tr>
+</table>
+<ul class="nav nav-pills" role="tablist">
+        <li role="presentation" class="active"><a href="#">Friends<span class="badge"><?php echo count($page1); ?></span></a></li>
+		<li role="presentation"><a href="#">Invates<span class="badge"><?php echo count($page2); ?></span></a></li>
+</ul>
+<h3>Friends</h3>
+<?php if(empty($page1)){ ?>
+	<div class="alert alert-info" role="alert">
+	      no friends.
+    </div>
+<?php }else{ ?>
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Uid</th>
+            <th>Fuid</th>
+            <th>Friend_type</th>
+            <th>Status</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page1->items as $friend) { ?>
+        <tr>
+            <td><?php echo $friend->uid ?></td>
+            <td><?php echo $friend->fuid ?></td>
+            <td><?php echo $friend->friend_type ?></td>
+            <td><?php echo $friend->status ?></td>
+            <td><?php echo $this->tag->linkTo(array("friend/edit/" . $friend->uid, "Edit")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("friend/delete/" . $friend->uid, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("friend/index", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/index?page1=" . $page1->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/index?page1=" . $page1->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/index?page1=" . $page1->last, "Last") ?></td>
+                        <td><?php echo $page1->current, "/", $page1->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<?php } ?>
+<h3>Friends invites</h3>
+<?php if(empty($page2)){ ?>
+	<div class="alert alert-info" role="alert">
+	      no invates.
+    </div>
+<?php }else{ ?>
+<table class="browse" align="center">
+    <thead>
+        <tr>
+            <th>Uid</th>
+            <th>Fuid</th>
+            <th>Friend_type</th>
+            <th>Status</th>
+         </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($page2->items as $friend) { ?>
+        <tr>
+            <td><?php echo $friend->uid ?></td>
+            <td><?php echo $friend->fuid ?></td>
+            <td><?php echo $friend->friend_type ?></td>
+            <td><?php echo $friend->status ?></td>
+            <td><?php echo $this->tag->linkTo(array("friend/accept/" . $friend->uid, "Accpet")); ?></td>
+            <td><?php echo $this->tag->linkTo(array("friend/delete/" . $friend->uid, "Delete")); ?></td>
+        </tr>
+    <?php } ?>
+    </tbody>
+    <tbody>
+        <tr>
+            <td colspan="2" align="right">
+                <table align="center">
+                    <tr>
+                        <td><?php echo $this->tag->linkTo("friend/index", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/index?page2=" . $page2->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/index?page2=" . $page2->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/index?page2=" . $page2->last, "Last") ?></td>
+                        <td><?php echo $page2->current, "/", $page2->total_pages ?></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<?php } ?>
