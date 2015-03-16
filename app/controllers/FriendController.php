@@ -5,6 +5,23 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class FriendController extends ControllerBase
 {
+	public function onConstruct(){
+		$this->tag->setTitle('Friend');
+		parent::initialize();
+        $this->persistent->parameters = null;
+		$ret = $this->getAllAction();
+		if(!empty($ret)){
+        	$this->view->page1 = $ret->getPaginate();
+		}else{
+			$this->view->page1 = array();
+		}
+		$ret = $this->getInvitesAction();
+		if(!empty($ret)){
+        	$this->view->page2 = $ret->getPaginate();
+		}else{
+			$this->view->page2 = array();
+		}
+	}
 
     /**
      * Index action
@@ -14,27 +31,16 @@ class FriendController extends ControllerBase
 		$this->tag->setTitle('Friend');
 		parent::initialize();
         $this->persistent->parameters = null;
-		$ret = $this->findAllFriend();
-		if(empty($ret)){
-        	$this->view->page1 = array();
-		}else{	
-        	$this->view->page1 = $ret->getPaginate();
-		}
-		$ret = $this->findInvitedFriend();
-		if(empty($ret)){
-        	$this->view->page2 = array();
-		}else{	
-        	$this->view->page2 = $ret->getPaginate();
-		}
     }
 
-	private function findAllFriend(){
-		
+	public function getAllAction(){
 		$numberPage = 1;
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
 		$wheres = "(uid=$uid or fuid=$uid) and friend_type=2";
-		$friend = Friend::find(array($wheres,"order"=>"uid"));
+		$query = $this->modelsManager->createQuery("select User.uid,User.uname as name from User join Friend on Friend.fuid=User.uid where Friend.uid=$uid and Friend.friend_type=2");
+		$friend = $query->execute();
+		//$friend = Friend::find(array($wheres,"order"=>"uid"));
         if (count($friend) == 0) {
 			return array();
         }
@@ -45,7 +51,7 @@ class FriendController extends ControllerBase
         ));
 		return $paginator;
 	}
-	private function findInvitedFriend(){
+	public function getInvitesAction(){
 		
 		$numberPage = 1;
 		$auth = $this->session->get('auth');
@@ -125,6 +131,23 @@ class FriendController extends ControllerBase
             return $this->dispatcher->forward(array(
                 "controller" => "friend",
                 "action" => "index",
+            ));
+        }
+		$afriend=new Friend();
+        $afriend->uid = $uid;
+        $afriend->fuid = $fuid;
+        $afriend->friend_type = 2;
+        $afriend->status = 1;
+        
+
+        if (!$afriend->save()) {
+            foreach ($afriend->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+
+            return $this->dispatcher->forward(array(
+                "controller" => "friend",
+                "action" => "new"
             ));
         }
 
