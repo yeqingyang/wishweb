@@ -7,7 +7,7 @@ class FriendController extends ControllerBase
 {
 	public function onConstruct(){
 		$this->tag->setTitle('Friend');
-		parent::initialize();
+		//parent::initialize();
         $this->persistent->parameters = null;
 		$ret = $this->getAllAction();
 		if(!empty($ret)){
@@ -34,13 +34,14 @@ class FriendController extends ControllerBase
      */
     public function indexAction()
     {
-		$this->tag->setTitle('Friend');
-		parent::initialize();
+//		$this->tag->setTitle('Friend');
+//		parent::initialize();
         $this->persistent->parameters = null;
     }
 
 	public function getAllAction(){
 		$numberPage = 1;
+        $numberPage = $this->request->getQuery("page1", "int");
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
 		$wheres = "(uid=$uid or fuid=$uid) and friend_type=2";
@@ -60,6 +61,7 @@ class FriendController extends ControllerBase
 	public function getInvitesAction(){
 		
 		$numberPage = 1;
+        $numberPage = $this->request->getQuery("page2", "int");
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
 		$wheres = "fuid=$uid and friend_type=1";
@@ -77,6 +79,7 @@ class FriendController extends ControllerBase
 	public function getSendsAction(){
 		
 		$numberPage = 1;
+        $numberPage = $this->request->getQuery("page3", "int");
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
 		$wheres = "uid=$uid and friend_type=1";

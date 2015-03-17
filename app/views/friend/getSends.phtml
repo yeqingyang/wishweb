@@ -41,10 +41,10 @@
             <td colspan="2" align="right">
                 <table align="center">
                     <tr>
-                        <td><?php echo $this->tag->linkTo("friend/index", "First") ?></td>
-                        <td><?php echo $this->tag->linkTo("friend/index?page3=" . $page3->before, "Previous") ?></td>
-                        <td><?php echo $this->tag->linkTo("friend/index?page3=" . $page3->next, "Next") ?></td>
-                        <td><?php echo $this->tag->linkTo("friend/index?page3=" . $page3->last, "Last") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/getSends", "First") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/getSends?page3=" . $page3->before, "Previous") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/getSends?page3=" . $page3->next, "Next") ?></td>
+                        <td><?php echo $this->tag->linkTo("friend/getSends?page3=" . $page3->last, "Last") ?></td>
                         <td><?php echo $page3->current, "/", $page3->total_pages ?></td>
                     </tr>
                 </table>
