@@ -26,9 +26,6 @@
             <th>Birthday</th>
             <th>Gold Of Num</th>
             <th>Reward Of Point</th>
-            <th>Last Of Login Of Time</th>
-            <th>Online Of Accum Of Time</th>
-            <th>Password</th>
          </tr>
     </thead>
     <tbody>
@@ -44,9 +41,6 @@
             <td><?php echo $user->birthday ?></td>
             <td><?php echo $user->gold_num ?></td>
             <td><?php echo $user->reward_point ?></td>
-            <td><?php echo $user->last_login_time ?></td>
-            <td><?php echo $user->online_accum_time ?></td>
-            <td><?php echo $user->password ?></td>
             <td><?php echo $this->tag->linkTo(array("user/edit/" . $user->uid, "Edit")); ?></td>
             <td><?php echo $this->tag->linkTo(array("user/delete/" . $user->uid, "Delete")); ?></td>
             <td><?php echo $this->tag->linkTo(array("friend/create/" . $user->uid, "add friend")); ?></td>

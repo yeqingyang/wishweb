@@ -21,6 +21,12 @@ class FriendController extends ControllerBase
 		}else{
 			$this->view->page2 = array();
 		}
+		$ret = $this->getSendsAction();
+		if(!empty($ret)){
+        	$this->view->page3 = $ret->getPaginate();
+		}else{
+			$this->view->page3 = array();
+		}
 	}
 
     /**
@@ -58,6 +64,23 @@ class FriendController extends ControllerBase
 		$uid = $auth['id'];
 		$wheres = "fuid=$uid and friend_type=1";
 		$friend = Friend::find(array($wheres,"order"=>"uid"));
+        if (count($friend) == 0) {
+			return array();
+        }
+        $paginator = new Paginator(array(
+            "data" => $friend,
+            "limit"=> 10,
+            "page" => $numberPage
+        ));
+		return $paginator;
+	}
+	public function getSendsAction(){
+		
+		$numberPage = 1;
+		$auth = $this->session->get('auth');
+		$uid = $auth['id'];
+		$wheres = "uid=$uid and friend_type=1";
+		$friend = Friend::find(array($wheres,"order"=>"fuid"));
         if (count($friend) == 0) {
 			return array();
         }

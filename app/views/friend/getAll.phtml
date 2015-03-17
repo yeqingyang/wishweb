@@ -2,19 +2,10 @@
 
 <?php echo $this->getContent() ?>
 
-<table width="100%">
-    <tr>
-        <td align="left">
-            <?php echo $this->tag->linkTo(array("friend/index", "Go Back")); ?>
-        </td>
-        <td align="right">
-            <?php echo $this->tag->linkTo(array("friend/search", "Find friends")); ?>
-        </td>
-    </tr>
-</table>
 <ul class="nav nav-pills" role="tablist">
         <li role="presentation" class="active"><a href="getAll">Friends<span class="badge"><?php echo count($page1); ?></span></a></li>
 		<li role="presentation"><a href="getInvites">Invites<span class="badge"><?php echo count($page2); ?></span></a></li>
+		<li role="presentation"><a href="getSends">Sends<span class="badge"><?php echo count($page3); ?></span></a></li>
 </ul>
 <div align="center">
     <?php echo $this->getContent(); ?>
