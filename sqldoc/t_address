@@ -1,0 +1,11 @@
+create table t_address(
+	uid int unsigned not null comment 'uid',
+	city int unsigned not null comment '城市',
+	district int unsigned not null comment '小区',
+	zone int unsigned not null comment '区域',
+	building int unsigned not null comment '栋/号楼',
+	unit int unsigned not null comment '单元',
+	room int unsigned not null comment '室',
+	remark varchar(50) comment '备注',
+	index(uid)
+)engine = InnoDb default charset utf8;
