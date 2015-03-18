@@ -19,19 +19,15 @@
 <table class="browse" align="center">
     <thead>
         <tr>
-            <th>Uid</th>
-            <th>Fuid</th>
-            <th>Friend_type</th>
-            <th>Status</th>
+            <th>name</th>
+            <th>uid</th>
          </tr>
     </thead>
     <tbody>
     <?php foreach ($page3->items as $friend) { ?>
         <tr>
+            <td><?php echo $friend->name ?></td>
             <td><?php echo $friend->uid ?></td>
-            <td><?php echo $friend->fuid ?></td>
-            <td><?php echo $friend->friend_type ?></td>
-            <td><?php echo $friend->status ?></td>
             <td><?php echo $this->tag->linkTo(array("friend/delete/" . $friend->uid, "Delete")); ?></td>
         </tr>
     <?php } ?>

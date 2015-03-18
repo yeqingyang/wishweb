@@ -5,6 +5,10 @@ use Phalcon\Paginator\Adapter\Model as Paginator;
 
 class FriendController extends ControllerBase
 {
+	private $friends=null;
+	private $invites=null;
+	private $sends=null;
+
 	public function onConstruct(){
 		$this->tag->setTitle('Friend');
 		//parent::initialize();
@@ -40,19 +44,21 @@ class FriendController extends ControllerBase
     }
 
 	public function getAllAction(){
-		$numberPage = 1;
         $numberPage = $this->request->getQuery("page1", "int");
+		if(empty($numberPage)){
+			$numberPage = 1;
+		}
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
-		$wheres = "(uid=$uid or fuid=$uid) and friend_type=2";
-		$query = $this->modelsManager->createQuery("select User.uid,User.uname as name from User join Friend on Friend.fuid=User.uid where Friend.uid=$uid and Friend.friend_type=2");
-		$friend = $query->execute();
-		//$friend = Friend::find(array($wheres,"order"=>"uid"));
-        if (count($friend) == 0) {
+		if(empty($this->friends)){
+			$query = $this->modelsManager->createQuery("select User.uid,User.uname as name from User join Friend on Friend.fuid=User.uid where Friend.uid=$uid and Friend.friend_type=2");
+			$this->friends = $query->execute();
+		}
+        if (count($this->friends) == 0) {
 			return array();
         }
         $paginator = new Paginator(array(
-            "data" => $friend,
+            "data" => $this->friends,
             "limit"=> 10,
             "page" => $numberPage
         ));
@@ -60,17 +66,23 @@ class FriendController extends ControllerBase
 	}
 	public function getInvitesAction(){
 		
-		$numberPage = 1;
         $numberPage = $this->request->getQuery("page2", "int");
+		if(empty($numberPage)){
+			$numberPage = 1;
+		}
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
-		$wheres = "fuid=$uid and friend_type=1";
-		$friend = Friend::find(array($wheres,"order"=>"uid"));
-        if (count($friend) == 0) {
+		//$wheres = "fuid=$uid and friend_type=1";
+		//$friend = Friend::find(array($wheres,"order"=>"uid"));
+		if(empty($this->invites)){
+			$query = $this->modelsManager->createQuery("select User.uid,User.uname as name from User join Friend on Friend.uid=User.uid where Friend.fuid=$uid and Friend.friend_type=1");
+			$this->invites = $query->execute();
+		}
+        if (count($this->invites) == 0) {
 			return array();
         }
         $paginator = new Paginator(array(
-            "data" => $friend,
+            "data" => $this->invites,
             "limit"=> 10,
             "page" => $numberPage
         ));
@@ -78,17 +90,23 @@ class FriendController extends ControllerBase
 	}
 	public function getSendsAction(){
 		
-		$numberPage = 1;
         $numberPage = $this->request->getQuery("page3", "int");
+		if(empty($numberPage)){
+			$numberPage = 1;
+		}
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
-		$wheres = "uid=$uid and friend_type=1";
-		$friend = Friend::find(array($wheres,"order"=>"fuid"));
-        if (count($friend) == 0) {
+		//$wheres = "uid=$uid and friend_type=1";
+		//$friend = Friend::find(array($wheres,"order"=>"fuid"));
+		if(empty($this->sends)){
+			$query = $this->modelsManager->createQuery("select User.uid,User.uname as name from User join Friend on Friend.fuid=User.uid where Friend.uid=$uid and Friend.friend_type=1");
+			$this->sends = $query->execute();
+		}
+        if (count($this->sends) == 0) {
 			return array();
         }
         $paginator = new Paginator(array(
-            "data" => $friend,
+            "data" => $this->sends,
             "limit"=> 10,
             "page" => $numberPage
         ));

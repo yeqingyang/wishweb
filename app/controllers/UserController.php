@@ -14,6 +14,14 @@ class UserController extends ControllerBase
 		$this->tag->setTitle('User');
 		parent::initialize();
         $this->persistent->parameters = null;
+
+
+		$auth = $this->session->get('auth');
+		$uid = $auth['id'];
+        $user = User::findFirstByuid($uid);
+		$this->view->user = $user;
+		$address = Address::findFirstByuid($uid);
+		$this->view->address = $address;
     }
 
     /**
