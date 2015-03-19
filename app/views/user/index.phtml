@@ -1,16 +1,118 @@
 <?php echo $this->getContent() ?>
-<div align="left">
-<h2>User Info</h2>
-<table class="table table-striped">
-	<tbody>
-		<tr><td>Name: <?php echo $user->uname;?></td></tr>
-		<tr><td>Brithdy: <?php echo $user->birthday;?></td></tr>
-	</tbody>
+<div class="row">
+        <div class="col-md-6">
+<h2 align="left">User Info</h2>
+<table class="table table-condensed">
+    <tr>
+        <td align="right">
+            Name
+        </td>
+        <td align="left">
+            <?php echo $user['uname'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Email
+        </td>
+        <td align="left">
+            <?php echo $user['email'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Brithday
+        </td>
+        <td align="left">
+            <?php echo $user['birthday'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Create Time
+        </td>
+        <td align="left">
+            <?php echo $user['create_time'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Last Login Time
+        </td>
+        <td align="left">
+            <?php echo $user['last_login_time'] ?>
+        </td>
+    </tr>
 </table>
-<h2>Address Info</h2>
-			<?php if(empty($address)){
-				echo $this->tag->linkTo(array("address/new", "edit address"));
-			}else{
-				echo $address->toArray();
-			}?>
+<hr>
+<div align="right">
+<?php echo $this->tag->linkTo(array("user/edit/".$user['uid'], "Edit"));?>
+</div>
+		</div>
+<hr>
+        <div class="col-md-6">
+<h2 align="left">Address Info</h2>
+	<?php if(empty($address)){
+		echo $this->tag->linkTo(array("address/new", "edit address"));
+	}else{?>
+<table class="table table-condensed">
+    <tr>
+        <td align="right">
+            City
+        </td>
+        <td align="left">
+            <?php echo $address['city'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            District
+        </td>
+        <td align="left">
+            <?php echo $address['district'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Zone
+        </td>
+        <td align="left">
+            <?php echo $address['zone'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Building
+        </td>
+        <td align="left">
+            <?php echo $address['building'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Unit
+        </td>
+        <td align="left">
+            <?php echo $address['unit'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Room
+        </td>
+        <td align="left">
+            <?php echo $address['room'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            Remark
+        </td>
+        <td align="left">
+            <?php echo $address['remark'] ?>
+        </td>
+    </tr>
+</table>
+		</div>
+	<?php }?>
 </div>

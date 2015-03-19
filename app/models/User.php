@@ -132,4 +132,16 @@ class User extends \Phalcon\Mvc\Model
         );
     }
 
+	public function toArray($column=null){
+		$column=array();
+		$column['uid']=$this->uid;
+		$column['uname']=$this->uname;
+		$column['email']=$this->email;
+		$column['status']=$this->status;
+		$column['birthday']=date('Y-m-d H:i:s',$this->birthday);
+		$column['create_time']=date('Y-m-d H:i:s',$this->create_time);
+		$column['last_login_time']=date('Y-m-d H:i:s',$this->last_login_time);
+		return $column;
+	}
+
 }

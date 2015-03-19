@@ -19,9 +19,11 @@ class UserController extends ControllerBase
 		$auth = $this->session->get('auth');
 		$uid = $auth['id'];
         $user = User::findFirstByuid($uid);
-		$this->view->user = $user;
+		$this->view->user = $user->toArray();
 		$address = Address::findFirstByuid($uid);
-		$this->view->address = $address;
+		if(!empty($address)){
+			$this->view->address = $address->toArray();
+		}
     }
 
     /**
@@ -93,19 +95,10 @@ class UserController extends ControllerBase
 
             $this->view->uid = $user->uid;
 
-            $this->tag->setDefault("uid", $user->uid);
-            $this->tag->setDefault("usetime", $user->usetime);
             $this->tag->setDefault("uname", $user->uname);
             $this->tag->setDefault("email", $user->email);
             $this->tag->setDefault("status", $user->status);
-            $this->tag->setDefault("create_time", $user->create_time);
-            $this->tag->setDefault("dtime", $user->dtime);
-            $this->tag->setDefault("birthday", $user->birthday);
-            $this->tag->setDefault("gold_num", $user->gold_num);
-            $this->tag->setDefault("reward_point", $user->reward_point);
-            $this->tag->setDefault("last_login_time", $user->last_login_time);
-            $this->tag->setDefault("online_accum_time", $user->online_accum_time);
-            $this->tag->setDefault("password", $user->password);
+            $this->tag->setDefault("birthday", date("Y-m-d H:i:s",$user->birthday));
             
         }
     }
@@ -172,8 +165,7 @@ class UserController extends ControllerBase
                 "action" => "index"
             ));
         }
-
-        $uid = $this->request->getPost("uid");
+		$uid = $this->session->get("uid");
 
         $user = User::findFirstByuid($uid);
         if (!$user) {
@@ -185,17 +177,9 @@ class UserController extends ControllerBase
             ));
         }
 
-        $user->usetime = $this->request->getPost("usetime");
         $user->uname = $this->request->getPost("uname");
         $user->email = $this->request->getPost("email", "email");
-        $user->status = $this->request->getPost("status");
-        $user->create_time = $this->request->getPost("create_time");
-        $user->dtime = $this->request->getPost("dtime");
-        $user->birthday = $this->request->getPost("birthday");
-        $user->gold_num = $this->request->getPost("gold_num");
-        $user->reward_point = $this->request->getPost("reward_point");
-        $user->last_login_time = $this->request->getPost("last_login_time");
-        $user->online_accum_time = $this->request->getPost("online_accum_time");
+        $user->birthday = strtotime($this->request->getPost("birthday"));
         $user->password = md5($this->request->getPost("password"));
         
 

@@ -134,7 +134,7 @@ class AddressController extends ControllerBase
         $this->flash->success("addres was created successfully");
 
         return $this->dispatcher->forward(array(
-            "controller" => "address",
+            "controller" => "user",
             "action" => "index"
         ));
 

@@ -36,7 +36,7 @@ class SessionController extends ControllerBase
             $user->uname = $username;
             $user->password = md5($password);
             $user->email = $email;
-            $user->created_at = new Phalcon\Db\RawValue('now()');
+            $user->create_time = new Phalcon\Db\RawValue('now()');
             $user->status = 1;
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
@@ -88,6 +88,9 @@ class SessionController extends ControllerBase
             $user = User::findFirst("uname='$username' AND password='$password'");
             if ($user != false) {
                 $this->_registerSession($user);
+				$date=new DateTime();
+				$user->last_login_time=$date->getTimeStamp();
+				$user->save();
                 $this->flash->success('Welcome ' . $user->uname);
                 return $this->forward('user/index');
             }
