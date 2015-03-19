@@ -76,4 +76,7 @@ class Address extends \Phalcon\Mvc\Model
         );
     }
 
+	public function toArray($column=null){
+		return "City:$this->city \nDistrict:$this->district \nZone:$this->zone \nBuilding:$this->building \nUnit:$this->unit \nRoom:$this->room \nRemark:$this->remark\n";
+	}
 }

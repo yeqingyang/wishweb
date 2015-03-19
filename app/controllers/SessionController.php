@@ -62,6 +62,7 @@ class SessionController extends ControllerBase
             'id' => $user->uid,
             'name' => $user->uname
         ));
+        $this->session->set('uid',$user->uid);
     }
 
     /**
