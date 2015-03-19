@@ -154,7 +154,7 @@ class AddressController extends ControllerBase
             ));
         }
 
-        $uid = $this->request->getPost("uid");
+        $uid = $this->session->get("uid");
 
         $addres = Address::findFirstByuid($uid);
         if (!$addres) {
@@ -166,7 +166,6 @@ class AddressController extends ControllerBase
             ));
         }
 
-        $addres->uid = $this->request->getPost("uid");
         $addres->city = $this->request->getPost("city");
         $addres->district = $this->request->getPost("district");
         $addres->zone = $this->request->getPost("zone");
@@ -192,7 +191,7 @@ class AddressController extends ControllerBase
         $this->flash->success("addres was updated successfully");
 
         return $this->dispatcher->forward(array(
-            "controller" => "address",
+            "controller" => "user",
             "action" => "index"
         ));
 

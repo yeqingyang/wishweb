@@ -1,8 +1,8 @@
 <?php echo $this->getContent() ?>
 <div class="row">
-        <div class="col-md-6">
+        <div width="50%">
 <h2 align="left">User Info</h2>
-<table class="table table-condensed">
+<table class="table">
     <tr>
         <td align="right">
             Name
@@ -44,13 +44,12 @@
         </td>
     </tr>
 </table>
-<hr>
 <div align="right">
 <?php echo $this->tag->linkTo(array("user/edit/".$user['uid'], "Edit"));?>
 </div>
 		</div>
 <hr>
-        <div class="col-md-6">
+        <div width="50%">
 <h2 align="left">Address Info</h2>
 	<?php if(empty($address)){
 		echo $this->tag->linkTo(array("address/new", "edit address"));
@@ -113,6 +112,9 @@
         </td>
     </tr>
 </table>
-		</div>
+<div align="right">
+<?php echo $this->tag->linkTo(array("address/edit/".$user['uid'], "Edit"));?>
+</div>
 	<?php }?>
+		</div>
 </div>
