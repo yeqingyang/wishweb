@@ -28,7 +28,7 @@
             <label for="district">District</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("district", "type" => "number")) ?>
+            <?php echo $this->tag->selectStatic(array("district", $DISTRICT));?>
         </td>
     </tr>
     <tr>

@@ -9,5 +9,8 @@ class AddressDef{
 		1=>array(
 			1=>'上地东里'
 			),
+		2=>array(
+			1=>'亚运城'
+			),
 	);
 }
