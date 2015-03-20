@@ -7,5 +7,5 @@ create table t_address(
 	unit int unsigned not null comment '单元',
 	room int unsigned not null comment '室',
 	remark varchar(50) comment '备注',
-	index(uid)
+	primary key(uid)
 )engine = InnoDb default charset utf8;

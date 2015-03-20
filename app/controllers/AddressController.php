@@ -59,6 +59,8 @@ class AddressController extends ControllerBase
     public function newAction()
     {
 
+		$this->view->CITY = AddressDef::$CITY;
+		$this->view->DISTRICT = AddressDef::$DISTRICT;
     }
 
     /**
@@ -81,9 +83,10 @@ class AddressController extends ControllerBase
                 ));
             }
 
+			$this->view->CITY = AddressDef::$CITY;
+			$this->view->DISTRICT = AddressDef::$DISTRICT;
             $this->view->uid = $addres->uid;
 
-            $this->tag->setDefault("uid", $addres->uid);
             $this->tag->setDefault("city", $addres->city);
             $this->tag->setDefault("district", $addres->district);
             $this->tag->setDefault("zone", $addres->zone);

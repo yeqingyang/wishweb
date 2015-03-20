@@ -20,7 +20,7 @@
             <label for="city">City</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->textField(array("city", "type" => "number")) ?>
+            <?php echo $this->tag->selectStatic(array("city", $CITY));?>
         </td>
     </tr>
     <tr>
