@@ -16,13 +16,4 @@ class AddressDef{
 			),
 	);
 
-	public static function toJson(){
-		$json = array('city'=>self::$CITY,'district'=>self::$DISTRICT);
-		$jsonstring = json_encode($json);
-		return $jsonstring;
-	}
 }
-$file = fopen("../../public/js/address.js","w");
-$address = AddressDef::toJson();
-fwrite($file, $address);
-fclose($file);
