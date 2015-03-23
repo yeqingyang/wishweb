@@ -15,5 +15,6 @@
         <?php echo $this->tag->javascriptInclude('js/jquery.min.js'); ?>
         <?php echo $this->tag->javascriptInclude('bootstrap/js/bootstrap.js'); ?>
         <?php echo $this->tag->javascriptInclude('js/utils.js'); ?>
+        <?php echo $this->tag->javascriptInclude('js/address.js'); ?>
     </body>
 </html>
