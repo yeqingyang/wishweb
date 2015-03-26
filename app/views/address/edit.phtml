@@ -25,7 +25,8 @@ function loadXMLDoc()
 	    	document.getElementById("district").innerHTML=xmlhttp.responseText;
     	}
   	}
-  	xmlhttp.open("GET","<?php echo $this->url->get("address/getDistrict/")?>".cityvalue, true);
+	console.log("/address/getDistrict/"+cityvalue);
+  	xmlhttp.open("GET","/address/getDistrict/"+cityvalue, true);
   	xmlhttp.send();
 }
 </script>
