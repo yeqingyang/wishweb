@@ -237,5 +237,25 @@ class AddressController extends ControllerBase
             "action" => "index"
         ));
     }
+	
+	public function getDistrictAction($city){
+
+		$this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+
+        if (!$this->request->isGet() || !$this->request->isAjax()) {
+			$this->flash->error("invalid action!");
+        }
+		//Getting a response instance
+		$response = new \Phalcon\Http\Response();
+		//Set status code
+		//$response->setStatusCode(200, "Not Found");
+		$feed = AddressDef::$DISTRICT[$city];
+		echo "$feed";
+		//Set the content of the response
+		$response->setContent(json_encode($feed,JSON_UNESCAPED_UNICODE));
+		//Send response to the client
+		$response->send();
+
+	}
 
 }

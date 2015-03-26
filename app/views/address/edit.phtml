@@ -6,6 +6,9 @@
 function loadXMLDoc()
 {
 	var xmlhttp;
+	var city=document.getElementById("city");
+	var cityvalue=city.options[city.selectedIndex].value;
+	console.log(cityvalue);
 	if (window.XMLHttpRequest)
   	{// code for IE7+, Firefox, Chrome, Opera, Safari
     	xmlhttp=new XMLHttpRequest();
@@ -18,10 +21,11 @@ function loadXMLDoc()
     {
     	if (xmlhttp.readyState==4 && xmlhttp.status==200)
     	{
-	    	document.getElementById("city").innerHTML=xmlhttp.responseText;
+			console.log(xmlhttp.responseText);
+	    	document.getElementById("district").innerHTML=xmlhttp.responseText;
     	}
   	}
-  	xmlhttp.open("GET","js/address.js",true);
+  	xmlhttp.open("GET","<?php echo $this->url->get("address/getDistrict/")?>".cityvalue, true);
   	xmlhttp.send();
 }
 </script>
@@ -42,7 +46,7 @@ function loadXMLDoc()
             <label for="city">City</label>
         </td>
         <td align="left">
-            <?php echo $this->tag->selectStatic(array("city", $CITY));?>
+            <?php echo $this->tag->selectStatic(array("city", $CITY, "onchange"=>"loadXMLDoc()"));?>
         </td>
     </tr>
     <tr>

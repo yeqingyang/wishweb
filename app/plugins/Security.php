@@ -40,7 +40,7 @@ class Security extends Plugin
 				'user'    => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
 				'bill'    => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
 				'friend'    => array('index', 'getSends','getAll', 'getInvites', 'accept', 'save', 'create', 'delete'),
-				'address'    => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete'),
+				'address'    => array('index', 'search', 'new', 'edit', 'save', 'create', 'delete','getDistrict'),
 			);
 			foreach ($privateResources as $resource => $actions) {
 				$acl->addResource(new Phalcon\Acl\Resource($resource), $actions);
@@ -97,6 +97,7 @@ class Security extends Plugin
 		$controller = $dispatcher->getControllerName();
 		$action = $dispatcher->getActionName();
 
+		echo "$controller, $action";
 		$acl = $this->getAcl();
 
 		$allowed = $acl->isAllowed($role, $controller, $action);
