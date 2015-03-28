@@ -84,7 +84,7 @@ class AddressController extends ControllerBase
             }
 
 			$this->view->CITY = AddressDef::$CITY;
-			$this->view->DISTRICT = AddressDef::$DISTRICT;
+			$this->view->DISTRICT = AddressDef::$DISTRICT[$addres->city];
             $this->view->uid = $addres->uid;
 
             $this->tag->setDefault("city", $addres->city);
@@ -240,21 +240,21 @@ class AddressController extends ControllerBase
 	
 	public function getDistrictAction($city){
 
-		$this->view->setRenderLevel(View::LEVEL_NO_RENDER);
+		$this->view->setRenderLevel(0);
 
-        if (!$this->request->isGet() || !$this->request->isAjax()) {
+        if (!$this->request->isGet()) {
 			$this->flash->error("invalid action!");
         }
 		//Getting a response instance
-		$response = new \Phalcon\Http\Response();
+		//$response = new \Phalcon\Http\Response();
 		//Set status code
 		//$response->setStatusCode(200, "Not Found");
 		$feed = AddressDef::$DISTRICT[$city];
-		echo "$feed";
 		//Set the content of the response
-		$response->setContent(json_encode($feed,JSON_UNESCAPED_UNICODE));
+		//$response->setContent(json_encode($feed,JSON_UNESCAPED_UNICODE));
 		//Send response to the client
-		$response->send();
+		//$response->send();
+		echo json_encode($feed,JSON_UNESCAPED_UNICODE);
 
 	}
 

@@ -97,7 +97,6 @@ class Security extends Plugin
 		$controller = $dispatcher->getControllerName();
 		$action = $dispatcher->getActionName();
 
-		echo "$controller, $action";
 		$acl = $this->getAcl();
 
 		$allowed = $acl->isAllowed($role, $controller, $action);

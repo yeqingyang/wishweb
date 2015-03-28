@@ -21,8 +21,16 @@ function loadXMLDoc()
     {
     	if (xmlhttp.readyState==4 && xmlhttp.status==200)
     	{
-			console.log(xmlhttp.responseText);
-	    	document.getElementById("district").innerHTML=xmlhttp.responseText;
+			var districts=xmlhttp.responseText;
+	    	var district=document.getElementById("district");
+			//先清空
+			district.length=0;
+			districts=eval("("+districts+")");
+			console.log(districts);
+			$.each(districts,function(key,value){ 
+				 console.log("key:"+key+";value:"+value); 
+				 district.options.add(new Option(value,key));
+			}); 
     	}
   	}
 	console.log("/address/getDistrict/"+cityvalue);
