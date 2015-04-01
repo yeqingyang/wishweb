@@ -33,11 +33,24 @@ class SessionController extends ControllerBase
             }
 
             $user = new User();
+			$user->init();
             $user->uname = $username;
             $user->password = md5($password);
             $user->email = $email;
             $user->create_time = new Phalcon\Db\RawValue('now()');
             $user->status = 1;
+
+//			$register = new Register();
+//			$register->rand_code = "1";
+//			$register->identifier = "lpz";
+//			$register->phoneNumber = "18810465137";
+//
+//            if ($register->save() == false) {
+//                foreach ($register->getMessages() as $message) {
+//                    $this->flash->error((string) $message);
+//                }
+//            }
+
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
                     $this->flash->error((string) $message);
@@ -48,6 +61,7 @@ class SessionController extends ControllerBase
                 $this->flash->success('Thanks for sign-up, please log-in to start generating invoices');
                 return $this->forward('session/index');
             }
+
         }
     }
 

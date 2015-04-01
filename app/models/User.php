@@ -110,6 +110,21 @@ class User extends \Phalcon\Mvc\Model
         $this->setSource('t_user');
     }
 
+	/**
+	 * Initialize some properties for default
+	 */
+	public function init(){
+		$this->usetime = time();
+		$this->status = 1;
+		$this->create_time = time();
+		$this->dtime = 0;
+		$this->birthday = 0;
+		$this->gold_num = 0;
+		$this->reward_point = 0;
+		$this->last_login_time = 0;
+		$this->online_accum_time = 0;
+	}
+
     /**
      * Independent Column Mapping.
      */
